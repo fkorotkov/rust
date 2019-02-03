@@ -67,7 +67,7 @@ for i in ${!modules[@]}; do
 done
 retry sh -c "git submodule deinit -f $use_git && \
     git submodule sync && \
-    git submodule update -j 16 --init --recursive $use_git"
+    git submodule update --init --recursive $use_git"
 wait
 travis_fold end init_repo
 travis_time_finish
