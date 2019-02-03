@@ -5,9 +5,10 @@ env:
   CARGO_HOME: /cargo
   DOCKER_CONTEXT: src/ci/docker
 
+timeout_in: 120m
+
 task:
   env:
-    CPU: 2
     matrix:
       - IMAGE: x86_64-gnu-llvm-6.0
         RUST_BACKTRACE: 1
@@ -17,6 +18,8 @@ task:
         DEPLOY_ALT: 1
   container:
     dockerfile: src/ci/docker/$IMAGE/Dockerfile
+    cpu: 8
+    memory: 24G
   init_script:
     - mkdir -p $HOME/rustsrc
     - ./src/ci/init_repo.sh . $HOME/rustsrc
