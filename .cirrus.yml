@@ -3,14 +3,15 @@ env:
   SRC: /checkout
   CIRRUS_CLONE_DEPTH: 50
   CARGO_HOME: /cargo
-  DOCKER_CONTEXT: src/ci/docker
+  SCCACHE_DIR: /sccache
 
 timeout_in: 120m
 
 task:
   env:
-    CPU: 4
-    MEMORY: 12G
+    CPU: 8
+    MEMORY: 24G
+    DOCKER_CONTEXT: src/ci/docker
     matrix:
       - IMAGE: x86_64-gnu-llvm-6.0
         RUST_BACKTRACE: 1
