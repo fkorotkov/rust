@@ -23,6 +23,12 @@ task:
     dockerfile: src/ci/docker/$IMAGE/Dockerfile
     cpu: $CPU
     memory: $MEMORY
+  sscache_cache:
+    folder: $SCCACHE_DIR
+    fingerprint_script: echo $IMAGE
+  cargo_cache:
+    folder: $CARGO_HOME/registry
+    fingerprint_script: cat Cargo.lock
   init_script:
     - mkdir -p $HOME/rustsrc
     - ./src/ci/init_repo.sh . $HOME/rustsrc
