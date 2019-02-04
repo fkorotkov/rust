@@ -1,0 +1,32 @@
+env:
+  CIRRUS_WORKING_DIR: /checkout
+  SRC: /checkout
+  CIRRUS_CLONE_DEPTH: 50
+  CARGO_HOME: /cargo
+  SCCACHE_DIR: /sccache
+
+timeout_in: 120m
+
+task:
+  env:
+    CPU: 8
+    MEMORY: 24G
+    DOCKER_CONTEXT: src/ci/docker
+    matrix:
+      - IMAGE: x86_64-gnu-llvm-6.0
+        RUST_BACKTRACE: 1
+      - IMAGE: dist-x86_64-linux
+        DEPLOY: 1
+      - IMAGE: dist-x86_64-linux
+        DEPLOY_ALT: 1
+  container:
+    dockerfile: src/ci/docker/$IMAGE/Dockerfile
+    cpu: $CPU
+    memory: $MEMORY
+  init_script:
+    - mkdir -p $HOME/rustsrc
+    - ./src/ci/init_repo.sh . $HOME/rustsrc
+  run_script:
+    - mkdir -p obj
+    - cd obj
+    - /checkout/src/ci/run.sh
