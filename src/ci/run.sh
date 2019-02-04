@@ -118,6 +118,9 @@ else
     cat /proc/meminfo || true
     ncpus=$(grep processor /proc/cpuinfo | wc -l)
 fi
+if [ "$CPU" != "" ]; then
+    ncpus=$CPU
+fi
 travis_fold end log-system-info
 
 if [ ! -z "$SCRIPT" ]; then

@@ -9,6 +9,8 @@ timeout_in: 120m
 
 task:
   env:
+    CPU: 4
+    MEMORY: 12G
     matrix:
       - IMAGE: x86_64-gnu-llvm-6.0
         RUST_BACKTRACE: 1
@@ -18,8 +20,8 @@ task:
         DEPLOY_ALT: 1
   container:
     dockerfile: src/ci/docker/$IMAGE/Dockerfile
-    cpu: 8
-    memory: 24G
+    cpu: $CPU
+    memory: $MEMORY
   init_script:
     - mkdir -p $HOME/rustsrc
     - ./src/ci/init_repo.sh . $HOME/rustsrc
