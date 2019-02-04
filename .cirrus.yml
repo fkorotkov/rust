@@ -1,7 +1,7 @@
 env:
+  CIRRUS_CLONE_DEPTH: 50
   CIRRUS_WORKING_DIR: /checkout
   SRC: /checkout
-  CIRRUS_CLONE_DEPTH: 50
   CARGO_HOME: /cargo
   SCCACHE_DIR: /sccache
 
